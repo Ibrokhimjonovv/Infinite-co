@@ -1,7 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.core.mail import send_mail
 from django.conf import settings
-from .models import Config, Portfolio, Team, SocialNetworks, Partners
+from .models import *
 from .forms import ContactForm
 import requests
 
@@ -13,6 +13,13 @@ def index(request):
     socialnetworks = SocialNetworks.objects.all()
     teams = Team.objects.all()
     partners = Partners.objects.all()
+    navbars = Navbar.objects.all()
+    getstarteds = Getstarted.objects.all()
+    statics = Statics.objects.all()
+    services = Services.objects.all()
+    categories = Categories.objects.all()
+    questions = Questions.objects.all()
+
     if request.method =='POST':
         form = ContactForm(request.POST, request.FILES)
         if form.is_valid():
@@ -42,8 +49,29 @@ def index(request):
         'portfolios':portfolios,
         'teams':teams,
         'socialnetworks':socialnetworks,
-        'partners':partners
+        'partners':partners,
+        'navbars':navbars,
+        'getstarteds':getstarteds,
+        'statics':statics,
+        'services':services,
+        'categories':categories,
+        'questions':questions
     }
     context['list1'] = context['config'].texts1.split('\n')
     
     return render(request, 'index.html', context)
+
+def portfolio_detail(request, portfolio_id):
+    # portfolio_details = Portfolio.objects.all()
+    portfolio = get_object_or_404(Portfolio, id=portfolio_id)
+    # portfolio_details = Portfolio.objects.get(id=1)
+    navbars = Navbar.objects.all()
+    getstarteds = Getstarted.objects.all()
+    context = {
+        'config': Config.objects.order_by('-pk').first(),
+        'portfolio':portfolio,
+        'navbars':navbars,
+        'getstarteds':getstarteds
+    }
+
+    return render(request, 'portfolio_details.html', context)

@@ -54,40 +54,88 @@ class Contact(models.Model):
     def __str__(self):
         return self.name
 
+class Categories(models.Model):
+    title = models.CharField(max_length=64)
+    data_filter = models.CharField(max_length=64)
+
+    def __str__(self):
+        return self.data_filter
+
 class Portfolio(models.Model):
     title = models.CharField(max_length=200)
     image = models.FileField(upload_to='portfolio_images/')
     description = models.TextField(default="Infinite Co tomonidan yaratildi")
     url = models.CharField(max_length=1000)
+    about = models.TextField(default='Portfolio haqida')
     filter_text = models.CharField(max_length=256, choices=(('filter-website', 'Website'), ('filter-telegram-bot', 'Telegram bot'), ('filter-automation', 'Automation'), ('filter-desktop', 'Desktop')), blank=True, null=True)
+    # filter_text = models.ForeignKey(Categories, on_delete=models.CASCADE, related_name='filter_text')
 
     def __str__(self):
         return self.title
 
 class Team(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=64)
     image = models.FileField(upload_to='team_images/')
-    subject = models.CharField(max_length=50)
+    subject = models.CharField(max_length=64)
     description = models.CharField(max_length=150)
 
     def __str__(self):
         return self.name
 
 class SocialNetworks(models.Model):
-    title = models.CharField(max_length=50)
-    icon = models.CharField(max_length=50)
-    url = models.CharField(max_length=50)
+    title = models.CharField(max_length=64)
+    icon = models.CharField(max_length=64)
+    url = models.CharField(max_length=64)
 
     def __str__(self):
         return self.title
 class TeamNetwork(models.Model):
     team = models.ForeignKey(Team, models.CASCADE, related_name='team')
-    icon = models.CharField(max_length=50, default='')
-    url = models.CharField(max_length=50, default='')
+    icon = models.CharField(max_length=64, default='')
+    url = models.CharField(max_length=64, default='')
 
 class Partners(models.Model):
     image = models.FileField(upload_to='partners_images')
-    title = models.CharField(max_length=50, default='')
+    title = models.CharField(max_length=64, default='')
 
     def __str__(self):
         return self.title
+
+class Navbar(models.Model):
+    title = models.CharField(max_length=64)
+    url = models.CharField(max_length=64)
+
+    def __str__(self):
+        return self.title
+
+class Getstarted(models.Model):
+    title = models.CharField(max_length=64)
+    url = models.CharField(max_length=64)
+
+    def __str__(self):
+        return self.title
+
+class Statics(models.Model):
+    direction = models.CharField(max_length=64)
+    percent = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.direction
+    
+class Services(models.Model):
+    icon = models.CharField(max_length=64)
+    title = models.CharField(max_length=128)
+    description = models.CharField(max_length=256)
+    data_aos_delay = models.IntegerField(default=0)    
+
+    def __str__(self):
+        return self.title
+
+class Questions(models.Model):
+    question = models.CharField(max_length=256)
+    answer = models.CharField(max_length=512)
+    data_aos_delay = models.IntegerField(default=0)
+    faq_list = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.question

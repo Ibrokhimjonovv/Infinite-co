@@ -44,20 +44,19 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto active" href="/#hero">Bosh sahifa</a></li>
-          <li><a class="nav-link scrollto" href="/#about">Haqida</a></li>
-          <li><a class="nav-link scrollto" href="/#services">Xizmatlar</a></li>
-          <li><a class="nav-link   scrollto" href="/#portfolio">Portfolio</a></li>
-          <li><a class="nav-link scrollto" href="/#team">Jamoa</a></li>
-          <li><a class="nav-link scrollto" href="/#partners">Hamkorlar</a></li>
-          <li><a class="nav-link scrollto" href="/#contact">Aloqa</a></li>
-          <li><a class="getstarted scrollto" href="/#about">Boshlash</a></li>
+          {% for navbar in navbars %}
+            <li><a class="nav-link scrollto active" href="/#{{navbar.url}}">{{navbar.title}}</a></li>
+          {% endfor %}
+          {% for getstarted in getstarteds %}
+            <li><a class="getstarted scrollto" href="/#{{getstarted.url}}">{{getstarted.title}}</a></li>
+          {% endfor %}
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
 
     </div>
   </header><!-- End Header -->
+  {% block header %} {% endblock header %}
 
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="d-flex align-items-center">
@@ -69,7 +68,9 @@
           <h1>{{ config.text1 }}</h1>
           <h2>{{ config.text2 }}</h2>
           <div class="d-flex justify-content-center justify-content-lg-start">
-            <a href="/#about" class="btn-get-started scrollto">Boshlash</a>
+            {% for getstarted in getstarteds %}
+              <a href="/#{{getstarted.url}}" class="btn-get-started scrollto">{{getstarted.title}}</a>
+            {% endfor %}
             <!-- <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="glightbox btn-watch-video"><i class="bi bi-play-circle"></i><span>Watch Video</span></a> -->
           </div>
         </div>
@@ -219,37 +220,15 @@
 
             <div class="skills-content">
 
-              <div class="progress">
-                <span class="skill">HTML <i class="val">100%</i></span>
-                <div class="progress-bar-wrap">
-                  <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0"
-                    aria-valuemax="100"></div>
-                </div>
-              </div>
-
-              <div class="progress">
-                <span class="skill">CSS <i class="val">90%</i></span>
-                <div class="progress-bar-wrap">
-                  <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
+              {% for static in statics %}
+                <div class="progress">
+                  <span class="skill">{{static.direction}} <i class="val">{{static.percent}}%</i></span>
+                  <div class="progress-bar-wrap">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="{{static.percent}}" aria-valuemin="0"
+                      aria-valuemax="100"></div>
                   </div>
                 </div>
-              </div>
-
-              <div class="progress">
-                <span class="skill">JavaScript <i class="val">75%</i></span>
-                <div class="progress-bar-wrap">
-                  <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-                  </div>
-                </div>
-              </div>
-
-              <div class="progress">
-                <span class="skill">Photoshop <i class="val">55%</i></span>
-                <div class="progress-bar-wrap">
-                  <div class="progress-bar" role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100">
-                  </div>
-                </div>
-              </div>
+              {% endfor %}
 
             </div>
 
@@ -269,40 +248,17 @@
         </div>
 
         <div class="row">
-          <div class="col-xl-3 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bxl-dribbble"></i></div>
-              <h4><a href="">Desktop ishlab chiqish</a></h4>
-              <p>Desktop ilovalarni ishlab chiqarish</p>
-            </div>
-          </div>
+          {% for service in services %}
 
-          <div class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in"
-            data-aos-delay="200">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-file"></i></div>
-              <h4><a href="">Web ishlab chiqish</a></h4>
-              <p>Veb-sahifalarni ishlab chiqarish</p>
+            <div class="col-xl-3 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="{{service.data_aos_delay}}">
+              <div class="icon-box" style="width:100%">
+                <div class="icon"><i class="{{service.icon}}"></i></div>
+                <h4><a href="">{{service.title}}</a></h4>
+                <p>{{service.description}}</p>
+              </div>
             </div>
-          </div>
 
-          <div class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-xl-0" data-aos="zoom-in"
-            data-aos-delay="300">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-tachometer"></i></div>
-              <h4><a href="">Avtomatlashtirish</a></h4>
-              <p>Avtomatlashtirish</p>
-            </div>
-          </div>
-
-          <div class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-xl-0" data-aos="zoom-in"
-            data-aos-delay="400">
-            <div class="icon-box">
-              <div class="icon"><i class="bx bx-layer"></i></div>
-              <h4><a href="">Telegram Bot</a></h4>
-              <p>Telegram Bot kursnimiz narxi 300ming so'mdan oyiga . Haftada 3 kun dars 3 soatdan bo'adi.</p>
-            </div>
-          </div>
+          {% endfor %}
 
         </div>
 
@@ -337,25 +293,28 @@
 
         <ul id="portfolio-flters" class="d-flex justify-content-center" data-aos="fade-up" data-aos-delay="100">
           <li data-filter="*" class="filter-active">Hammasi</li>
-          <li data-filter=".filter-website">Web-sayt</li>
-          <li data-filter=".filter-telegram-bot">Telegram Bots</li>
-          <li data-filter=".filter-automation">Avtomatlashtirish</li>
-          <li data-filter=".filter-desktop">Desktop</li>
+          {% for category in categories %}
+            <li data-filter=".filter-{{category.data_filter}}">{{category.title}}</li>
+          {% endfor %}
         </ul>
 
         <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
 
           {% for portfolio in portfolios %}
           <div class="col-lg-4 col-md-6 portfolio-item {{ portfolio.filter_text }}">
-              <div class="portfolio-img"><img src="{{portfolio.image.url}}" class="img-fluid" alt=""></div>
+              <div class="portfolio-img">
+                <a href="{{portfolio.url}}"><img src="{{portfolio.image.url}}" class="img-fluid" alt=""></a>
+              </div>
               <div class="portfolio-info">
                 <h4>{{portfolio.title}}</h4>
                 <p>{{portfolio.description}}</p>
                 <a href="{{portfolio.url}}" data-gallery="portfolioGallery"
                   class="portfolio-lightbox preview-link" title="{{portfolio.title}}"><i class="bx bx-plus"></i></a>
-                <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                <a href="{% url 'portfolio_detail' portfolio.id%}" class="details-link" title="Batafsil ma'lumot"><i class="bx bx-link"></i></a>
               </div>
             </div>
+          {% empty %}
+            <h2>Hozircha hech narsa yo'q))</h2>
           {% endfor %}
         </div>
 
@@ -482,56 +441,20 @@
 
         <div class="faq-list">
           <ul>
-            
-
-            <li data-aos="fade-up" data-aos-delay="200">
-              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-2"
-                class="collapsed">Komputer bo'yicha bilimlarim yo'q unda nima qilishim mumkun?<i
-                  class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-              <div id="faq-list-2" class="collapse" data-bs-parent=".faq-list">
-                <p>
-                  Agar komputer bo'yicha bilimlaringiz yo'q bo'lsa bizning 2 oylik "Komputer savodxonligi" kurslarimiz ham mavjud
-                </p>
-              </div>
-            </li>
-
-            <li data-aos="fade-up" data-aos-delay="300">
-              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-3"
-                class="collapsed">"Komputer savodxonligi" kursida nimalar o'rgatilinadi? <i
-                  class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-              <div id="faq-list-3" class="collapse" data-bs-parent=".faq-list">
-                <p>
-                  "Komputer savodxonligi" kursimizda komputer ichki va tashqi qismlari, Word va Excel jadvallari o'rgatilinadi.
-                </p>
-              </div>
-            </li>
-
-            <li data-aos="fade-up" data-aos-delay="400">
-              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-4"
-                class="collapsed">Agar dasturlashni o'rganmoqchi bo'lsamchi?<i
-                  class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-              <div id="faq-list-4" class="collapse" data-bs-parent=".faq-list">
-                <p>
-                  Agar siz dasturlashni o'rganmoqchi bo'lsangiz bizning "Foundation" kurslarimiz mavjud. Unda 1 oy davomida dasturlash kurslarimizga tayyorgarlik ko'riladi.
-                </p>
-              </div>
-            </li>
-
-            <li data-aos="fade-up" data-aos-delay="100">
-              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" class="collapse"
-                data-bs-target="#faq-list-1">Dasturlash kursini qancha muddatda tamomlaymiz?<i
-                  class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-              <div id="faq-list-1" class="collapse show" data-bs-parent=".faq-list">
-                <p>
-                  Dasturlash kursimiz 6 oydan 9 oygacha davom etadi. 
-                </p>
-              </div>
-            </li>
-
-
+            {% for question in questions %}
+              <li data-aos="fade-up" data-aos-delay="{{question.data_aos_delay}}">
+                  <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-{{question.faq_list}}"
+                    class="collapsed">{{question.question}}<i
+                    class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                  <div id="faq-list-{{question.faq_list}}" class="collapse" data-bs-parent=".faq-list">
+                    <p>
+                      {{question.answer}}
+                    </p>
+                  </div>
+              </li>
+            {% endfor %}
           </ul>
         </div>
-
       </div>
     </section><!-- End Frequently Asked Questions Section -->
     
@@ -542,28 +465,30 @@
         <header class="section-header">
           <h3 style="color: #18d26e;">Bizning Hamkorlarimiz</h3>
         </header>
-        <div style="display: inline-flex; justify-content: center; width: 100%; height: auto; margin-top: 60px;" class="center">
-          {% for partner in partners %} 
-          <div class="clients-slider swiper" style="display: inline-flex; justify-content: center;
-          width: 200px;
-          height: 120px;">
-             
-            <div class="swiper-wrapper align-items-center">
-                
-                  <div class="partners-images" style="display:flex; align-items: center; justify-content:center" >
-                    <div class="swiper-slide" id="clients">
-                        
-                      <img src="{{partner.image.url}}" style="width:100%; height:auto" class="img-fluid" alt="{{partner.title}}">
-                    
+        <marquee behavior="scroll" direction="">
+          <div style="display: inline-flex; justify-content: center; width: 100%; height: auto; margin-top: 60px;" class="center">
+            {% for partner in partners %} 
+            <div class="clients-slider swiper" style="display: inline-flex; justify-content: center;
+            width: 200px;
+            height: 120px;">
+               
+              <div class="swiper-wrapper align-items-center">
+                  
+                    <div class="partners-images" style="display:flex; align-items: center; justify-content:center" >
+                      <div class="swiper-slide" id="clients">
+                          
+                        <img src="{{partner.image.url}}" style="width:100%; height:auto" class="img-fluid" alt="{{partner.title}}">
+                      
+                      </div>
                     </div>
-                  </div>
-                
+                  
+              </div>
+              <div class="swiper-pagination">
+              </div>
             </div>
-            <div class="swiper-pagination">
-            </div>
+            {% endfor %}
           </div>
-          {% endfor %}
-        </div>
+        </marquee>
       </div>
       
     </section>
